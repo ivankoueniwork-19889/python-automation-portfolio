@@ -1,0 +1,17 @@
+[
+    {
+        "name": "GitHub API",
+        "url": "https://api.github.com",
+        "timeout": 5
+    },
+    {
+        "name": "HTTPBin",
+        "url": "https://httpbin.org/get",
+        "timeout": 5
+    },
+    {
+        "name": "JSONPlaceholder",
+        "url": "https://jsonplaceholder.typicode.com/posts/1",
+        "timeout": 5
+    }
+]

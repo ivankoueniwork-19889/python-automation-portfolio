@@ -1,1 +1,16 @@
+# Secrets — never commit these
 .env
+.env.*
+*.env
+
+# Python cache — auto generated
+__pycache__/
+*.pyc
+
+# Virtual environment — machine specific
+.venv/
+venv/
+
+# OS files
+.DS_Store
+Thumbs.db
