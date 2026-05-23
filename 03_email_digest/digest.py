@@ -29,7 +29,7 @@ import smtplib
 # third party
 from dotenv import load_dotenv
 import pandas as pd
-# import yagmail
+
 
 # ─── Logging configuration ────────────────────────────────────────────────────
 # We configure logging once at the top level, before any functions run.
@@ -86,28 +86,24 @@ This is an automated summary generated from the latest dataset.
 
 
 def send_email(sender: str, receiver: str, body: str) -> None:
-    """
-    Send email digest using SMTP.
-    Currently configured for local debug server on localhost:1025.
-    To enable live send, swap host/port for smtp.gmail.com:587
-    and add TLS authentication.
-    """
-    
+    """Send email digest via Gmail SMTP with TLS."""
+    password = os.getenv("EMAIL_PASSWORD")
 
-    # Build the email message object
     msg = MIMEText(body)
     msg["Subject"] = "Daily Employee Digest"
     msg["From"]    = sender
     msg["To"]      = receiver
 
     try:
-        # Connect to local debug server
-        # Swap localhost:1025 for smtp.gmail.com:587 in production
-        with smtplib.SMTP("localhost", 1025) as smtp:
+        with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
+            smtp.ehlo()
+            smtp.starttls()
+            smtp.login(sender, password)
             smtp.sendmail(sender, receiver, msg.as_string())
-        log.info("Email sent successfully to local debug server")
+        log.info("Email sent successfully")
     except Exception as e:
         log.error(f"Failed to send email: {e}")
+
 
 def main() -> None:
     """Parse command-line arguments and run email sender."""
